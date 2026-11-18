@@ -24,17 +24,41 @@ def load_ticket_data(file_path):
         if not reader.fieldnames:
             raise ValueError("CSV file is empty or has no header.")
 
-        if len(reader.fieldnames) != len(set(reader.fieldnames)):
-            raise ValueError("CSV contains duplicate column names.")
+        normalized_headers = [
+            header.strip().lower() if header else ""
+            for header in reader.fieldnames
+        ]
 
-        missing = REQUIRED_COLUMNS - set(reader.fieldnames)
+        if any(not header for header in normalized_headers):
+            raise ValueError("CSV contains an empty column name.")
+
+        if len(normalized_headers) != len(set(normalized_headers)):
+            raise ValueError(
+                "CSV contains duplicate column names after normalization."
+            )
+
+        missing = REQUIRED_COLUMNS - set(normalized_headers)
 
         if missing:
             raise ValueError(
                 f"Missing required columns: {sorted(missing)}"
             )
 
-        records = list(reader)
+        reader.fieldnames = normalized_headers
+
+        records = []
+        for row_number, record in enumerate(reader, start=2):
+            if None in record:
+                raise ValueError(
+                    f"Malformed CSV row {row_number}: extra fields detected."
+                )
+
+            if any(value is None for value in record.values()):
+                raise ValueError(
+                    f"Malformed CSV row {row_number}: missing fields detected."
+                )
+
+            records.append(record)
 
     return records
 

@@ -237,3 +237,65 @@ def test_run_analysis():
         "Critical", "High", "Medium", "Low"
     }
     assert len(results["filtered_resolutions"]) == 13
+
+
+# Additional CSV regression tests
+
+def test_extra_csv_fields_rejected(tmp_path):
+    path = tmp_path / "extra.csv"
+    path.write_text(
+        "ticket_id,priority,category,resolution_time_hours\n"
+        "TKT001,High,Technical,5.5,EXTRA\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="extra fields"):
+        load_ticket_data(path)
+
+
+def test_missing_csv_fields_rejected(tmp_path):
+    path = tmp_path / "missing.csv"
+    path.write_text(
+        "ticket_id,priority,category,resolution_time_hours\n"
+        "TKT001,High,Technical\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="missing fields"):
+        load_ticket_data(path)
+
+
+@pytest.mark.parametrize(
+    "header",
+    [
+        "ticket_id,priority,Priority,category,resolution_time_hours",
+        "ticket_id,priority, priority,category,resolution_time_hours",
+        "ticket_id,priority,category, resolution_time_hours,resolution_time_hours",
+    ],
+)
+def test_normalized_duplicate_headers_rejected(tmp_path, header):
+    path = tmp_path / "duplicates.csv"
+    path.write_text(
+        header + "\n"
+        "TKT001,High,Technical,5,6\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="duplicate"):
+        load_ticket_data(path)
+
+
+def test_headers_normalized_before_loading(tmp_path):
+    path = tmp_path / "normalized.csv"
+    path.write_text(
+        " TICKET_ID , PRIORITY , CATEGORY , RESOLUTION_TIME_HOURS \n"
+        "TKT001,High,Technical,5.5\n",
+        encoding="utf-8",
+    )
+
+    records = load_ticket_data(path)
+
+    assert records[0]["ticket_id"] == "TKT001"
+    assert records[0]["priority"] == "High"
+    assert records[0]["resolution_time_hours"] == "5.5"
+
