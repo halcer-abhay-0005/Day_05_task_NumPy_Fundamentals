@@ -127,7 +127,7 @@ The benchmark uses three array sizes:
 - 10,000 elements
 - 100,000 elements
 
-Each benchmark uses five repetitions and compares median execution times.
+Each benchmark uses three warm-up iterations and twenty measured repetitions and compares median execution times.
 
 ## Installation and Setup
 
@@ -213,16 +213,16 @@ The following results were obtained during local execution.
 | Automated tests | 28 passed |
 | Code coverage | 96% |
 | Benchmark array sizes | 3 |
-| Benchmark repetitions | 5 |
+| Benchmark repetitions | 20 |
 | Benchmark result comparisons | All matched |
 
 ### Benchmark Results
 
 | Array Size | Vectorized Median | Loop Median | Speed Advantage |
 |---:|---:|---:|---:|
-| 1,000 | 0.00002904 sec | 0.00046396 sec | ~15.98× |
-| 10,000 | 0.00014421 sec | 0.00502438 sec | ~34.84× |
-| 100,000 | 0.00096421 sec | 0.05078175 sec | ~52.67× |
+| 1,000 | 0.00001558 sec | 0.00044942 sec | 28.84× |
+| 10,000 | 0.00012340 sec | 0.00481421 sec | 39.01× |
+| 100,000 | 0.00094458 sec | 0.05082287 sec | 53.80× |
 
 **Observation:** NumPy vectorized operations were faster than traditional Python loops in all three benchmark scenarios. Both approaches produced matching results.
 

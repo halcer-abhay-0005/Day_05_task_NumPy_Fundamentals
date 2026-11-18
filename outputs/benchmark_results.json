@@ -1,23 +1,29 @@
 [
     {
         "array_size": 1000,
-        "repeats": 5,
-        "vectorized_median_seconds": 2.9041999368928373e-05,
-        "loop_median_seconds": 0.0004639589897124097,
+        "warmups": 3,
+        "repeats": 20,
+        "vectorized_median_seconds": 1.55829984578304e-05,
+        "loop_median_seconds": 0.0004494165041251108,
+        "speedup": 28.840181518421485,
         "results_match": true
     },
     {
         "array_size": 10000,
-        "repeats": 5,
-        "vectorized_median_seconds": 0.0001442079956177622,
-        "loop_median_seconds": 0.005024375001084991,
+        "warmups": 3,
+        "repeats": 20,
+        "vectorized_median_seconds": 0.00012339599925326183,
+        "loop_median_seconds": 0.004814208499738015,
+        "speedup": 39.014299725043614,
         "results_match": true
     },
     {
         "array_size": 100000,
-        "repeats": 5,
-        "vectorized_median_seconds": 0.0009642079967306927,
-        "loop_median_seconds": 0.05078174998925533,
+        "warmups": 3,
+        "repeats": 20,
+        "vectorized_median_seconds": 0.0009445830000913702,
+        "loop_median_seconds": 0.05082287499681115,
+        "speedup": 53.804562427965585,
         "results_match": true
     }
 ]

@@ -153,15 +153,15 @@ The current implementation achieved 96% code coverage.
 
 A separate benchmark script was created to compare NumPy vectorized calculations against traditional Python loop-based calculations.
 
-The benchmark was executed using five repetitions for each array size.
+The benchmark was executed using twenty measured repetitions after three warm-up iterations for each array size.
 
 ### Benchmark Results
 
 | Array Size | Vectorized Time | Loop Time | Speed Advantage |
 |---:|---:|---:|---:|
-| 1,000 | 0.00002904 sec | 0.00046396 sec | 15.98× |
-| 10,000 | 0.00014421 sec | 0.00502438 sec | 34.84× |
-| 100,000 | 0.00096421 sec | 0.05078175 sec | 52.67× |
+| 1,000 | 0.00001558 sec | 0.00044942 sec | 28.84× |
+| 10,000 | 0.00012340 sec | 0.00481421 sec | 39.01× |
+| 100,000 | 0.00094458 sec | 0.05082287 sec | 53.80× |
 
 ### Observations
 
@@ -253,9 +253,9 @@ By completing this task, I gained practical understanding of:
 | Evidence generation | Completed |
 | README documentation | Prepared |
 | Daily report documentation | Prepared |
-| Git initialization and push | Pending |
+| Git initialization and push | Completed |
 
-**Overall Result:** Day 05 implementation, testing, and benchmarking completed successfully. Documentation is prepared for final verification before Git submission.
+**Overall Result:** Day 05 implementation, testing, and benchmarking completed successfully. Documentation and GitHub submission have been completed. Subsequent corrections are subject to final verification.
 
 ---
 
