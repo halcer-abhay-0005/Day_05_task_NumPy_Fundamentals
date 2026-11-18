@@ -4,7 +4,7 @@
 - **Assignment:** Day 05 — NumPy Fundamentals
 - **Date:** 2026-11-18
 - **Repository URL:** [https://github.com/halcer-abhay-0005/Day_05_task_NumPy_Fundamentals](https://github.com/halcer-abhay-0005/Day_05_task_NumPy_Fundamentals)
-- **Latest commit hash:** '84fe32d'
+- **Latest commit hash:** 'a0f63cd'
 - **Pull Request:** N/A — no pull request created
 
 ---
