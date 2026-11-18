@@ -1,0 +1,68 @@
+{
+    "total_records": 20,
+    "array_info": {
+        "shape": [
+            20
+        ],
+        "dimensions": 1,
+        "dtype": "float64",
+        "size": 20
+    },
+    "valid_metrics": {
+        "count": 18,
+        "mean": 7.972222222222222,
+        "median": 7.25,
+        "minimum": 1.5,
+        "maximum": 18.0,
+        "total": 143.5
+    },
+    "priority_metrics": {
+        "Critical": {
+            "count": 4,
+            "mean": 2.25,
+            "median": 2.25,
+            "minimum": 1.5,
+            "maximum": 3.0,
+            "total": 9.0
+        },
+        "High": {
+            "count": 5,
+            "mean": 5.9,
+            "median": 6.0,
+            "minimum": 4.5,
+            "maximum": 7.5,
+            "total": 29.5
+        },
+        "Low": {
+            "count": 4,
+            "mean": 14.75,
+            "median": 14.5,
+            "minimum": 12.0,
+            "maximum": 18.0,
+            "total": 59.0
+        },
+        "Medium": {
+            "count": 5,
+            "mean": 9.2,
+            "median": 9.0,
+            "minimum": 7.0,
+            "maximum": 11.5,
+            "total": 46.0
+        }
+    },
+    "filtered_resolutions": [
+        2.5,
+        5.0,
+        8.5,
+        6.5,
+        1.5,
+        10.0,
+        7.5,
+        9.0,
+        4.5,
+        3.0,
+        6.0,
+        7.0,
+        2.0
+    ]
+}
