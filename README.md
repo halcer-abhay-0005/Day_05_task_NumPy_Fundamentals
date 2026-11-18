@@ -210,8 +210,8 @@ The following results were obtained during local execution.
 |---|---:|
 | Total input records | 20 |
 | Valid numerical records | 18 |
-| Automated tests | 28 passed |
-| Code coverage | 96% |
+| Automated tests | 37 passed |
+| Code coverage | 94% |
 | Benchmark array sizes | 3 |
 | Benchmark repetitions | 20 |
 | Benchmark result comparisons | All matched |
@@ -245,9 +245,9 @@ The automated test suite covers:
 - Invalid files and CSV structures.
 - Application execution.
 
-**Latest verified test result:** 28 passed.
+**Latest verified test result:** 37 passed.
 
-**Latest verified code coverage:** 96%.
+**Latest verified code coverage:** 94%.
 
 Four statements remain uncovered in the current coverage report. The project has not been represented as having 100% coverage.
 
@@ -265,7 +265,7 @@ Four statements remain uncovered in the current coverage report. The project has
 - The project currently uses a small sample CSV dataset.
 - Benchmark timings depend on hardware and execution environment.
 - The benchmark focuses on the implemented numerical calculations rather than every possible NumPy workload.
-- The current test coverage is 96%.
+- The current test coverage is 94%.
 
 ## Author
 

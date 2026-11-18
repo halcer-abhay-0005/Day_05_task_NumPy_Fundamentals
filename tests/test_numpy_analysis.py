@@ -2,6 +2,7 @@ import numpy as np
 import pytest
 
 from src.numpy_analysis import (
+    InvalidCSVError,
     load_ticket_data,
     extract_resolution_times,
     inspect_array,
@@ -299,3 +300,33 @@ def test_headers_normalized_before_loading(tmp_path):
     assert records[0]["priority"] == "High"
     assert records[0]["resolution_time_hours"] == "5.5"
 
+
+
+def test_unterminated_quote_raises(tmp_path):
+    f = tmp_path / "malformed.csv"
+    f.write_text(
+        "ticket_id,priority,category,resolution_time_hours\n"
+        'T1,High,Technical,"5\nT2,Low,General,8\n',
+        encoding="utf-8",
+    )
+    with pytest.raises(InvalidCSVError):
+        load_ticket_data(f)
+
+
+def test_valid_quoted_and_escaped_fields(tmp_path):
+    f = tmp_path / "quoted.csv"
+    f.write_text(
+        "ticket_id,priority,category,resolution_time_hours\n"
+        'T1,High,"Tech, ""Net""",5\n'
+        'T2,Low,"General",8\n',
+        encoding="utf-8",
+    )
+    records = load_ticket_data(f)
+    assert len(records) == 2
+    assert records[0]["category"] == 'Tech, "Net"'
+    assert records[1]["resolution_time_hours"] == "8"
+
+
+def test_adjusted_values_overflow_raises():
+    with pytest.raises(OverflowError):
+        calculate_adjusted_values([1e308], [1e308])

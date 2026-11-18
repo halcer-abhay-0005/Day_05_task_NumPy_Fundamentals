@@ -11,6 +11,10 @@ REQUIRED_COLUMNS = {
 }
 
 
+class InvalidCSVError(ValueError):
+    """Raised when the CSV is structurally invalid (e.g. bad quoting)."""
+
+
 def load_ticket_data(file_path):
     """Load ticket records and validate the CSV structure."""
     path = Path(file_path)
@@ -19,14 +23,19 @@ def load_ticket_data(file_path):
         raise FileNotFoundError(f"File not found: {path}")
 
     with path.open("r", encoding="utf-8", newline="") as file:
-        reader = csv.DictReader(file)
+        reader = csv.DictReader(file, strict=True)
 
-        if not reader.fieldnames:
+        try:
+            fieldnames = reader.fieldnames
+        except csv.Error as exc:
+            raise InvalidCSVError(f"Malformed CSV header: {exc}") from exc
+
+        if not fieldnames:
             raise ValueError("CSV file is empty or has no header.")
 
         normalized_headers = [
             header.strip().lower() if header else ""
-            for header in reader.fieldnames
+            for header in fieldnames
         ]
 
         if any(not header for header in normalized_headers):
@@ -47,7 +56,20 @@ def load_ticket_data(file_path):
         reader.fieldnames = normalized_headers
 
         records = []
-        for row_number, record in enumerate(reader, start=2):
+        row_iter = iter(reader)
+        row_number = 1
+        while True:
+            row_number += 1
+            try:
+                record = next(row_iter)
+            except StopIteration:
+                break
+            except csv.Error as exc:
+                raise InvalidCSVError(
+                    f"Malformed CSV near line {reader.line_num}: {exc}. "
+                    "Check for an unterminated quoted field."
+                ) from exc
+
             if None in record:
                 raise ValueError(
                     f"Malformed CSV row {row_number}: extra fields detected."
@@ -215,11 +237,19 @@ def calculate_adjusted_values(values, adjustments):
         raise ValueError("Inputs must contain finite values.")
 
     try:
-        return base + adjustment
+        with np.errstate(over="ignore"):
+            result = base + adjustment
     except ValueError as exc:
         raise ValueError(
             f"Incompatible shapes: {base.shape} and {adjustment.shape}"
         ) from exc
+
+    if not np.all(np.isfinite(result)):
+        raise OverflowError(
+            "Adjusted values overflow float64 range (result is not finite)."
+        )
+
+    return result
 
 
 def run_analysis(file_path):
