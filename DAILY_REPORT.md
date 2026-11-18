@@ -113,7 +113,7 @@ The complete automated test suite was executed.
 python3 -m pytest -v
 ```
 
-**Result: 28 passed**
+**Result: 37 passed**
 
 The test cases covered:
 
@@ -145,9 +145,9 @@ python3 -m pytest --cov=src --cov-report=term-missing
 | Total statements | 95 |
 | Covered statements | 91 |
 | Uncovered statements | 4 |
-| Code coverage | 96% |
+| Code coverage | 94% |
 
-The current implementation achieved 96% code coverage.
+The current implementation achieved 94% code coverage.
 
 ## 6. Performance Benchmarking
 
@@ -246,8 +246,8 @@ By completing this task, I gained practical understanding of:
 |---|---|
 | NumPy application implementation | Completed |
 | Application execution | Passed |
-| Automated tests | 28/28 passed |
-| Code coverage | 96% |
+| Automated tests | 37/37 passed |
+| Code coverage | 94% |
 | Benchmark execution | Passed |
 | Numerical result comparison | Passed |
 | Evidence generation | Completed |
